@@ -371,13 +371,13 @@ if st.session_state.nav_page == "Quick Drafts":
 # ═══════════════════════════════════════════════════════════════
 # PAGE: ADVANCED LETTER BUILDER (the new 11-type system)
 # ═══════════════════════════════════════════════════════════════
+def letter_builder_page():
+    st.subheader("Advanced VA Letter Builder")
+    # rest of the UI...
 
 elif st.session_state.nav_page == "Advanced Letter Builder":
-
-    # Import the letter builder function from streamlit_app.py
-    from streamlit_app import letter_builder_page
-    
     letter_builder_page()
+
 
 # ═══════════════════════════════════════════════════════════════
 # FOOTER
