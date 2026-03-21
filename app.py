@@ -24,6 +24,7 @@ def build_pdf(text_blocks):
     buffer.seek(0)
     return buffer
 
+
 # ======================
 # ADVANCED BUILDER LOGIC
 # ======================
@@ -63,7 +64,6 @@ def advanced_builder():
         st.write(generated)
 
 
-
 # ======================
 # Page config & header
 # ======================
@@ -74,7 +74,6 @@ st.set_page_config(
 )
 
 st.image("logo.png", width=160)
-
 st.title("Zero Dark Claims – VA Letter Helper")
 
 st.markdown(
@@ -85,29 +84,19 @@ This tool runs locally in your browser and on your device. No Veteran-identifyin
 """
 )
 
-# ======================
-# Navigation state
-# ======================
-
-if "nav_page" not in st.session_state:
-    st.session_state.nav_page = "Quick Drafts"
-
-st.sidebar.title("Navigation")
-page_choice = st.sidebar.radio(
-    "Go to:",
-    ["Quick Drafts", "Advanced Letter Builder"],
-    index=0 if st.session_state.nav_page == "Quick Drafts" else 1,
-)
-st.session_state.nav_page = page_choice
-
 st.markdown("---")
+
+# ======================
+# Tabs navigation (no sidebar)
+# ======================
+
+tab_quick, tab_advanced = st.tabs(["Quick Drafts", "Advanced Letter Builder"])
 
 # ======================
 # QUICK DRAFTS PAGE
 # ======================
 
-if st.session_state.nav_page == "Quick Drafts":
-
+with tab_quick:
     st.write("Choose the type of letter you want to draft and then fill in your details.")
 
     st.markdown("### Step 1 – Choose Letter Type")
@@ -359,7 +348,7 @@ if st.session_state.nav_page == "Quick Drafts":
                     mime="application/pdf",
                 )
 
-                # LAY / WITNESS STATEMENT
+        # LAY / WITNESS STATEMENT
         elif letter_choice == "lay":
             if st.button("Generate Lay/Witness Statement (VA Form 21-10210 style)"):
                 today = datetime.date.today().strftime("%B %d, %Y")
@@ -417,20 +406,14 @@ if st.session_state.nav_page == "Quick Drafts":
                     mime="application/pdf",
                 )
 
+
 # ======================
 # ADVANCED LETTER BUILDER PAGE
 # ======================
 
-elif st.session_state.nav_page == "Advanced Letter Builder":
-    st.subheader("Advanced VA Letter Builder")
-    st.write(
-        "This page will host the multi-letter-type builder (initial service connection, secondary, "
-        "increase, TDIU, appeals, lay/buddy, etc.)."
-    )
-    st.info(
-        "Advanced builder is wired into navigation. Next step is to plug in the structured letter "
-        "types and prompts you designed."
-    )
+with tab_advanced:
+    advanced_builder()
+
 
 # ======================
 # FOOTER
