@@ -317,7 +317,7 @@ if st.session_state.nav_page == "Quick Drafts":
                     mime="application/pdf",
                 )
 
-        # LAY / WITNESS STATEMENT
+                # LAY / WITNESS STATEMENT
         elif letter_choice == "lay":
             if st.button("Generate Lay/Witness Statement (VA Form 21-10210 style)"):
                 today = datetime.date.today().strftime("%B %d, %Y")
@@ -374,6 +374,7 @@ if st.session_state.nav_page == "Quick Drafts":
                     file_name="va_form_21_10210_lay_statement_draft.pdf",
                     mime="application/pdf",
                 )
+
 
 # ======================
 # ADVANCED LETTER BUILDER PAGE
