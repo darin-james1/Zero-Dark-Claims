@@ -5,6 +5,8 @@ import streamlit as st
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
+from config.letter_types import LETTER_TYPES
+
 
 # ======================
 # PDF helper
@@ -21,6 +23,46 @@ def build_pdf(text_blocks):
     doc.build(story)
     buffer.seek(0)
     return buffer
+
+# ======================
+# ADVANCED BUILDER LOGIC
+# ======================
+
+def advanced_builder():
+    st.subheader("Advanced VA Letter Builder")
+
+    type_key = st.selectbox(
+        "Letter type",
+        options=list(LETTER_TYPES.keys()),
+        format_func=lambda k: LETTER_TYPES[k]["label"],
+        help="Choose what kind of VA-support letter you want to build.",
+    )
+
+    cfg = LETTER_TYPES[type_key]
+    st.caption(cfg["description"])
+
+    st.markdown("### Step 1 – Provide details for each section")
+
+    user_inputs = {}
+    for section in cfg["sections"]:
+        user_inputs[section] = st.text_area(section, height=140)
+
+    if st.button("Generate draft letter"):
+        content_blocks = []
+        for section, text in user_inputs.items():
+            if text.strip():
+                content_blocks.append(f"{section}:\n{text.strip()}")
+        merged_content = "\n\n".join(content_blocks)
+
+        full_prompt = cfg["system_prompt"] + "\n\nVETERAN INPUT:\n" + merged_content
+
+        # TODO: replace with your actual LLM call
+        generated = full_prompt  # placeholder so UI works
+
+        st.markdown("### Draft letter")
+        st.write(generated)
+
+
 
 # ======================
 # Page config & header
