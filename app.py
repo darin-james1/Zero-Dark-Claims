@@ -375,7 +375,6 @@ if st.session_state.nav_page == "Quick Drafts":
                     mime="application/pdf",
                 )
 
-
 # ======================
 # ADVANCED LETTER BUILDER PAGE
 # ======================
