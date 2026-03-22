@@ -45,7 +45,7 @@ st.markdown(
       box-shadow: 0 24px 80px rgba(15,23,42,0.85);
     }
 
-    .stChatMessage {
+        .stChatMessage {
       border-radius: 1.1rem !important;
       border: 1px solid rgba(31,41,55,0.9) !important;
       background: rgba(15,23,42,0.9) !important;
@@ -59,13 +59,38 @@ st.markdown(
       border-radius: 999px;
       padding: 0.55rem 1.3rem;
     }
+
     .stTabs [data-baseweb="tab"] p {
       color: #f9fafb !important;
     }
 
+    /* Force all form field labels to white */
+    .stApp div[data-testid="stForm"] label p,
+    .stApp div[data-testid="stForm"] label span,
+    .stApp label p,
+    .stApp label span,
+    .stApp .stTextInput label div,
+    .stApp .stTextArea label div,
+    .stApp .stSelectbox label div {
+      color: #ffffff !important;
+      opacity: 1 !important;
+    }
+    /* Make all field titles (help text above inputs) white */
+    .stApp div[data-testid="stMarkdown"] p {
+      color: #ffffff !important;
+    }
+
+    .stApp [data-testid="stTextInput"] label div,
+    .stApp [data-testid="stTextArea"] label div,
+    .stApp [data-testid="stSelectbox"] label div {
+      color: #ffffff !important;
+    }
+
+
     </style>
     """,
     unsafe_allow_html=True,
+
 )
 
 
