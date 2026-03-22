@@ -1,3 +1,7 @@
 streamlit
 reportlab
 pandas
+openai>=1.0.0
+streamlit
+reportlab
+
