@@ -59,6 +59,10 @@ st.markdown(
       border-radius: 999px;
       padding: 0.55rem 1.3rem;
     }
+    .stTabs [data-baseweb="tab"] p {
+      color: #f9fafb !important;
+    }
+
     </style>
     """,
     unsafe_allow_html=True,
