@@ -6,6 +6,96 @@ from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
 from config.letter_types import LETTER_TYPES
+from openai import OpenAI
+
+
+# ======================
+# THEME & GLOBAL STYLES
+# ======================
+
+st.set_page_config(
+    page_title="Zero Dark Claims – VA Letter Helper",
+    layout="centered"
+)
+
+st.markdown(
+    """
+    <style>
+    :root {
+      --zdc-bg: #050816;
+      --zdc-bg-soft: #0b1220;
+      --zdc-accent: #00e0ff;
+      --zdc-accent-soft: rgba(0, 224, 255, 0.16);
+      --zdc-text-main: #f9fafb;
+      --zdc-text-muted: #d1d5db;
+      --zdc-border-subtle: #1f2937;
+    }
+
+    .stApp {
+      background: radial-gradient(circle at top, #111827 0, #020617 55%);
+      color: var(--zdc-text-main);
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .zdc-card {
+      background: radial-gradient(circle at top left, #111827, #020617);
+      border-radius: 1.5rem;
+      padding: 1.5rem 1.8rem;
+      border: 1px solid rgba(148,163,184,0.18);
+      box-shadow: 0 24px 80px rgba(15,23,42,0.85);
+    }
+
+    .stChatMessage {
+      border-radius: 1.1rem !important;
+      border: 1px solid rgba(31,41,55,0.9) !important;
+      background: rgba(15,23,42,0.9) !important;
+    }
+
+    .stButton > button {
+      background: linear-gradient(135deg, #22d3ee, #0ea5e9);
+      border: none;
+      box-shadow: 0 18px 45px rgba(56,189,248,0.45);
+      font-weight: 600;
+      border-radius: 999px;
+      padding: 0.55rem 1.3rem;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+
+# ======================
+# CHATBOT SETUP ("Avery")
+# ======================
+
+VA_COACH_SYSTEM_PROMPT = """
+You are a disability claims writing coach named Avery helping a Veteran improve the clarity of their written statements.
+
+Your job is to:
+- Help them clearly describe their own experiences, not invent new facts.
+- Focus on structure, plain language, and specific, concrete examples (dates, frequency, duration, impact on work, family, sleep, etc.).
+- Tailor your guidance to the section they are working on (for example: in-service event, current symptoms, daily impact, nexus, lay/witness statement).
+- Use calm, respectful, Veteran-friendly language.
+
+You must NOT:
+- Give legal, medical, or financial advice.
+- Claim to represent them before VA, or say you are VA, a VSO, or an attorney.
+- Predict ratings, promise outcomes, or tell them what percentage they “should” get.
+- Tell them exactly what to write as if you were a witness; instead, give examples and let them adapt in their own words.
+
+Always:
+- When they paste a draft, first point out 2–4 ways to make it clearer (missing details, timeline, frequency, daily impact).
+- Then provide a sample rewrite or bullet suggestions they can copy and adapt.
+- Encourage them to review their final letters with a VSO, accredited agent, or attorney before submitting.
+"""
+
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+
+if "avery_messages" not in st.session_state:
+    st.session_state.avery_messages = [
+        {"role": "system", "content": VA_COACH_SYSTEM_PROMPT}
+    ]
 
 
 # ======================
@@ -65,13 +155,10 @@ def advanced_builder():
 
 
 # ======================
-# Page config & header
+# Page header (inside card)
 # ======================
 
-st.set_page_config(
-    page_title="Zero Dark Claims – VA Letter Helper",
-    layout="centered"
-)
+st.markdown('<div class="zdc-card">', unsafe_allow_html=True)
 
 st.image("logo.png", width=160)
 st.title("Zero Dark Claims – VA Letter Helper")
@@ -176,6 +263,44 @@ with tab_quick:
             )
         else:
             lay_examples = ""
+
+        # ======== CHAT WITH AVERY – tied to daily impact section ========
+
+        st.markdown("### Chat with Avery, your writing guide")
+        st.caption("Educational writing help only. Not legal, medical, or financial advice.")
+
+        # show history (excluding system)
+        for msg in st.session_state.avery_messages[1:]:
+            role = "assistant" if msg["role"] == "assistant" else "user"
+            with st.chat_message(role):
+                st.markdown(msg["content"])
+
+        user_prompt = st.chat_input("Ask Avery for help with this section...")
+        if user_prompt:
+            section_name = "Daily impact of condition"
+            draft_text = daily_impact or "[No draft text yet]"
+
+            context = f"""Current section: {section_name}
+Current draft:
+{draft_text}
+
+Veteran’s question:
+{user_prompt}
+"""
+            st.session_state.avery_messages.append({"role": "user", "content": context})
+
+            with st.chat_message("assistant"):
+                with st.spinner("Thinking..."):
+                    resp = client.chat.completions.create(
+                        model="gpt-4o-mini",
+                        messages=st.session_state.avery_messages,
+                        temperature=0.3,
+                        max_tokens=400,
+                    )
+                    reply = resp.choices[0].message.content
+                    st.markdown(reply)
+
+            st.session_state.avery_messages.append({"role": "assistant", "content": reply})
 
         st.markdown("---")
 
@@ -425,3 +550,5 @@ st.markdown(
 **Disclaimer:** Zero Dark Claims is an educational drafting tool and does not provide legal, medical, or financial advice. Use of this tool does not create an attorney–client, doctor–patient, or representative relationship. You should consult a qualified professional (VSO, attorney, accredited agent, or healthcare provider) before relying on any drafted content.
 """
 )
+
+st.markdown("</div>", unsafe_allow_html=True)
