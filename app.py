@@ -85,6 +85,45 @@ st.markdown(
     .stApp [data-testid="stSelectbox"] label div {
       color: #ffffff !important;
     }
+.avery-wrapper {
+  position: fixed;
+  top: 20%;
+  right: 2%;
+  z-index: 999;
+}
+
+.avery-avatar {
+  width: 140px;
+  height: auto;
+  border-radius: 999px;
+  box-shadow: 0 18px 45px rgba(56,189,248,0.4);
+}
+/* Make the main content not run under the chat input */
+.main .block-container {
+  padding-bottom: 6rem; /* space for chat input */
+}
+
+/* Limit chat history height so it scrolls, input looks fixed */
+.chat-history-container {
+  max-height: calc(100vh - 200px); /* tweak 200px as needed */
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+st.markdown(
+    """
+    <style>
+    /* Hide GitHub / viewer badge in top-right */
+    .viewerBadge_container__1QSob,
+    .styles_viewerBadge__1yB5_,
+    .viewerBadge_link__1S137,
+    .viewerBadge_text__1JaDK {
+        display: none !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
 
 
     </style>
@@ -190,17 +229,45 @@ def advanced_builder():
 st.markdown('<div class="zdc-card">', unsafe_allow_html=True)
 
 st.image("logo.png", width=160)
-st.title("Zero Dark Claims – VA Letter Helper")
+# Create main (left) and right columns
+col_main, col_right = st.columns([4, 1])
 
-st.markdown(
+with col_main:
+    st.title("Zero Dark Claims – VA Letter Helper")
+
+    st.markdown(
+        """
+    **Privacy & Use Notice**
+
+    This tool runs locally in your browser and on your device. No Veteran-identifying information is stored, logged, or sent to any external server. All letter drafts are generated for you to download, review, and edit, and you are responsible for how and where you choose to share them with your doctor, VSO, attorney, or other representative.
     """
-**Privacy & Use Notice**
+    )
 
-This tool runs locally in your browser and on your device. No Veteran-identifying information is stored, logged, or sent to any external server. All letter drafts are generated for you to download, review, and edit, and you are responsible for how and where you choose to share them with your doctor, VSO, attorney, or other representative.
-"""
-)
+    st.markdown("---")
 
-st.markdown("---")
+    # ⬇️ PUT STEP 1 RIGHT HERE, wrapping your chat messages
+
+    st.markdown('<div class="chat-history-container">', unsafe_allow_html=True)
+
+    # this is where you already loop over messages
+    for msg in st.session_state.messages:
+        with st.chat_message(msg["role"]):
+            st.markdown(msg["content"])
+
+    st.markdown('</div>', unsafe_allow_html=True)
+
+with col_right:
+    st.markdown(
+        """
+        <div class="avery-wrapper">
+            <img src="https://your-avery-url.png" class="avery-avatar" />
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+# ⬇️ IMPORTANT: put chat_input AFTER the columns, at the bottom
+user_input = st.chat_input("Message Avery")
 
 # ======================
 # Tabs navigation (no sidebar)
@@ -518,37 +585,45 @@ Veteran’s question:
                     "Date of Birth: " + dob,
                     "",
                     (
-                        "I have personal knowledge of the Veteran, " + veteran_name +
+                        "I, " + witness_name + ", have personal knowledge of the Veteran, " + veteran_name +
                         ", who served in the United States " + branch +
                         " from approximately " + service_start + " to " + service_end + ". "
-                        "I know the Veteran because I am their " + relationship +
-                        ", and I have known them since around " + known_since + ". "
-                        "I am providing this statement to describe what I have personally seen and observed regarding "
+                        "I am the Veteran’s " + relationship +
+                        " and I have known them since around " + known_since + ". "
+                        "I am providing this statement in my own words to describe what I have personally seen and observed regarding "
                         "the Veteran’s " + condition + " and how it affects them."
                     ),
                     "",
                     (
                         "During and after the Veteran’s military service at " + location +
-                        ", they reported experiencing or I am aware that they experienced the following event(s) or conditions: "
-                        + event + "."
+                        ", I became aware that they experienced certain event(s) or exposures related to their service. "
+                        "From my perspective, the most important background information is: " + event
                     ),
                     "",
                     (
                         "Since around " + onset_date +
-                        ", I have personally observed the following changes, symptoms, or limitations: "
-                        + observed_text
+                        ", I have personally observed the following changes, behaviors, symptoms, or limitations in " + veteran_name +
+                        ": " + observed_text
                     ),
                     "",
                     (
-                        "These changes have affected the Veteran’s daily life in ways such as difficulty with work, "
-                        "family life, sleep, social activities, and overall functioning."
+                        "Based on what I have seen over time, these changes have affected the Veteran’s daily life, including their ability "
+                        "to work, interact with family, participate in social activities, and manage everyday tasks."
                     ),
                     "",
                     (
-                        "I am not a medical professional and am not offering a medical opinion. "
+                        "I am not a medical professional and I am not offering a medical opinion or diagnosis. "
                         "I am only describing what I have personally seen, heard, or observed about the Veteran’s condition "
                         "and how it affects them."
                     ),
+                    "",
+                    (
+                        "I certify that the statements in this letter are true and correct to the best of my knowledge and belief."
+                    ),
+                    "",
+                    "Witness Signature: _______________________________     Date: _______________",
+                    "Witness Printed Name: " + witness_name,
+                    "Witness Contact Information: " + witness_contact,
                 ]
 
                 pdf = build_pdf(blocks)
