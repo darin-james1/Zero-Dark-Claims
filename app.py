@@ -275,12 +275,29 @@ user_input = st.chat_input("Message Avery")
 # ======================
 
 tab_quick, tab_advanced = st.tabs(["Quick Drafts", "Advanced Letter Builder"])
+# Top-level navigation buttons
+if "active_tab" not in st.session_state:
+    st.session_state.active_tab = "quick"
 
+col_nav1, col_nav2 = st.columns(2)
+with col_nav1:
+    if st.button("Quick Drafts", use_container_width=True):
+        st.session_state.active_tab = "quick"
+with col_nav2:
+    if st.button("Advanced Letter Builder", use_container_width=True):
+        st.session_state.active_tab = "advanced"
+
+# Default active_tab
+if "active_tab" not in st.session_state:
+    st.session_state.active_tab = "quick"
 # ======================
 # QUICK DRAFTS PAGE
 # ======================
 
 with tab_quick:
+    if st.session_state.get("active_tab", "quick") != "quick":
+        st.stop()  # don't render this tab if not active
+
     st.write("Choose the type of letter you want to draft and then fill in your details.")
 
     st.markdown("### Step 1 – Choose Letter Type")
@@ -641,7 +658,8 @@ Veteran’s question:
 # ======================
 
 with tab_advanced:
-    advanced_builder()
+    if st.session_state.active_tab == "advanced":
+        advanced_builder()
 
 
 # ======================
