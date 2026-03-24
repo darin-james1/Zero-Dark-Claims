@@ -264,7 +264,7 @@ with col_right:
         unsafe_allow_html=True,
     )
 
-user_input = st.chat_input("Message Avery")
+
 
 
 # ======================
