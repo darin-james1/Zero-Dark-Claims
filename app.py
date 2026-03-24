@@ -166,7 +166,6 @@ if "avery_messages" not in st.session_state:
         {"role": "system", "content": VA_COACH_SYSTEM_PROMPT}
     ]
 
-# for the top chat loop (if you keep it)
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -234,7 +233,6 @@ def advanced_builder():
 st.markdown('<div class="zdc-card">', unsafe_allow_html=True)
 
 st.image("logo.png", width=160)
-# Create main (left) and right columns
 col_main, col_right = st.columns([4, 1])
 
 with col_main:
@@ -251,12 +249,10 @@ with col_main:
     st.markdown("---")
 
     st.markdown('<div class="chat-history-container">', unsafe_allow_html=True)
-
     for msg in st.session_state.messages:
         with st.chat_message(msg["role"]):
             st.markdown(msg["content"])
-
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
 
 with col_right:
     st.markdown(
@@ -270,12 +266,13 @@ with col_right:
 
 user_input = st.chat_input("Message Avery")
 
+
 # ======================
-# Tabs navigation (no sidebar)
+# Tabs + top buttons
 # ======================
 
 tab_quick, tab_advanced = st.tabs(["Quick Drafts", "Advanced Letter Builder"])
-# Top-level navigation buttons
+
 if "active_tab" not in st.session_state:
     st.session_state.active_tab = "quick"
 
@@ -287,34 +284,28 @@ with col_nav2:
     if st.button("Advanced Letter Builder", use_container_width=True):
         st.session_state.active_tab = "advanced"
 
-# Default active_tab
-if "active_tab" not in st.session_state:
-    st.session_state.active_tab = "quick"
+
 # ======================
 # QUICK DRAFTS PAGE
 # ======================
 
 with tab_quick:
-    if st.session_state.get("active_tab", "quick") != "quick":
-        st.stop()  # don't render this tab if not active
+    if st.session_state.active_tab != "quick":
+        st.stop()
 
     st.write("Choose the type of letter you want to draft and then fill in your details.")
-
     st.markdown("### Step 1 – Choose Letter Type")
 
     if "letter_choice" not in st.session_state:
         st.session_state.letter_choice = None
 
     col1, col2, col3 = st.columns(3)
-
     with col1:
         if st.button("Personal Statement"):
             st.session_state.letter_choice = "personal"
-
     with col2:
         if st.button("Medical Nexus Letter Outline"):
             st.session_state.letter_choice = "nexus"
-
     with col3:
         if st.button("Lay/Witness Statement (VA Form 21-10210 style)"):
             st.session_state.letter_choice = "lay"
@@ -378,8 +369,7 @@ with tab_quick:
         else:
             lay_examples = ""
 
-        # ======== CHAT WITH AVERY – tied to daily impact section ========
-
+        # Chat with Avery
         st.markdown("### Chat with Avery, your writing guide")
         st.caption("Educational writing help only. Not legal, medical, or financial advice.")
 
