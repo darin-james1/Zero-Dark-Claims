@@ -585,45 +585,37 @@ Veteran’s question:
                     "Date of Birth: " + dob,
                     "",
                     (
-                        "I, " + witness_name + ", have personal knowledge of the Veteran, " + veteran_name +
+                        "I have personal knowledge of the Veteran, " + veteran_name +
                         ", who served in the United States " + branch +
                         " from approximately " + service_start + " to " + service_end + ". "
-                        "I am the Veteran’s " + relationship +
-                        " and I have known them since around " + known_since + ". "
-                        "I am providing this statement in my own words to describe what I have personally seen and observed regarding "
+                        "I know the Veteran because I am their " + relationship +
+                        ", and I have known them since around " + known_since + ". "
+                        "I am providing this statement to describe what I have personally seen and observed regarding "
                         "the Veteran’s " + condition + " and how it affects them."
                     ),
                     "",
                     (
                         "During and after the Veteran’s military service at " + location +
-                        ", I became aware that they experienced certain event(s) or exposures related to their service. "
-                        "From my perspective, the most important background information is: " + event
+                        ", they reported experiencing or I am aware that they experienced the following event(s) or conditions: "
+                        + event + "."
                     ),
                     "",
                     (
                         "Since around " + onset_date +
-                        ", I have personally observed the following changes, behaviors, symptoms, or limitations in " + veteran_name +
-                        ": " + observed_text
+                        ", I have personally observed the following changes, symptoms, or limitations: "
+                        + observed_text
                     ),
                     "",
                     (
-                        "Based on what I have seen over time, these changes have affected the Veteran’s daily life, including their ability "
-                        "to work, interact with family, participate in social activities, and manage everyday tasks."
+                        "These changes have affected the Veteran’s daily life in ways such as difficulty with work, "
+                        "family life, sleep, social activities, and overall functioning."
                     ),
                     "",
                     (
-                        "I am not a medical professional and I am not offering a medical opinion or diagnosis. "
+                        "I am not a medical professional and am not offering a medical opinion. "
                         "I am only describing what I have personally seen, heard, or observed about the Veteran’s condition "
                         "and how it affects them."
                     ),
-                    "",
-                    (
-                        "I certify that the statements in this letter are true and correct to the best of my knowledge and belief."
-                    ),
-                    "",
-                    "Witness Signature: _______________________________     Date: _______________",
-                    "Witness Printed Name: " + witness_name,
-                    "Witness Contact Information: " + witness_contact,
                 ]
 
                 pdf = build_pdf(blocks)
