@@ -269,7 +269,8 @@ with col_main:
         """
     **Privacy & Use Notice**
 
-    This tool runs locally in your browser and on your device. No Veteran-identifying information is stored, logged, or sent to any external server. All letter drafts are generated for you to download, review, and edit, and you are responsible for how and where you choose to share them with your doctor, VSO, attorney, or other representative.
+    This tool runs locally in your browser and on your device. No Veteran-identifying information is stored, logged, or sent to any external server. Your information stays here until you close this window.  PRO TIP: Generate your letter then look it over and come back to this page to update/change your information and generate another letter. Repeat until you get the letter you want. 
+    All letter drafts are generated for you to download, review, and edit, and you are responsible for how and where you choose to share them with your doctor, VSO, attorney, or other representative.
     """
     )
 
