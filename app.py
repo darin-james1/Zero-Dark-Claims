@@ -299,31 +299,27 @@ with col_right:
 
 
 # ======================
-# Tabs + top buttons
+# Top page buttons (replace tabs)
 # ======================
-
-tab_quick, tab_advanced = st.tabs(["Quick Drafts", "Future Letter Builder"])
 
 if "active_tab" not in st.session_state:
     st.session_state.active_tab = "quick"
 
 col_nav1, col_nav2 = st.columns(2)
 with col_nav1:
-    if st.button("Quick Drafts", use_container_width=True):
+    if st.button("Quick Drafts", key="mode_quick", use_container_width=True):
         st.session_state.active_tab = "quick"
 with col_nav2:
-    if st.button("Future Letter Builder", use_container_width=True):
+    if st.button("Future Letter Builder", key="mode_advanced", use_container_width=True):
         st.session_state.active_tab = "advanced"
 
+st.markdown("---")
 
 # ======================
 # QUICK DRAFTS PAGE
 # ======================
 
-with tab_quick:
-    if st.session_state.active_tab != "quick":
-        st.stop()
-
+if st.session_state.active_tab == "quick":
     st.write("Choose the type of letter you want to draft and then fill in your details.")
     st.markdown("### Step 1 – Choose Letter Type")
 
@@ -453,253 +449,20 @@ Veteran's question:
 
         st.markdown("---")
 
-        # PERSONAL STATEMENT
-        if letter_choice == "personal":
-            if st.button("Generate Personal Statement"):
-                today = datetime.date.today().strftime("%B %d, %Y")
-                blocks = [
-                    "<b>VA Form 21-4138: Statement in Support of Claim (DRAFT)</b>",
-                    f"<b>Veteran:</b> {veteran_name}     <b>VA File/SSN:</b> {va_ssn}     <b>Date:</b> {today}",
-                    "",
-                    (
-                        f"I, {veteran_name}, served in the United States {branch} from approximately {service_start} "
-                        f"to {service_end}. While assigned to {location}, I experienced the following event(s) or "
-                        f"conditions: {event}."
-                    ),
-                    "",
-                    (
-                        f"<b>It is my contention that these in-service event(s) are at least as likely as not "
-                        f"(a 50 percent or greater probability) the cause of, or a significant contributor to, "
-                        f"my current {condition}.</b>"
-                    ),
-                    "",
-                    (
-                        f"My symptoms began around {onset_date} and have been present continuously since that time. "
-                        f"Today, this condition affects me in the following ways: {daily_impact}."
-                    ),
-                    "",
-                    (
-                        "These ongoing limitations significantly affect my daily functioning, relationships, work capacity, "
-                        "and overall quality of life."
-                    ),
-                    "",
-                    (
-                        "I understand that this statement will be used in connection with my claim for VA disability benefits. "
-                        "<b>I certify that the statements on this page are true and correct to the best of my knowledge and belief.</b>"
-                    ),
-                    "",
-                    "Veteran Signature: _______________________________     Date: _______________",
-                ]
+        # PERSONAL / NEXUS / LAY blocks unchanged...
+        # (keep your existing generation + PDF code here, still under the `if st.session_state.active_tab == "quick":`)
 
-                pdf = build_pdf(blocks)
-                st.success("Personal Statement draft generated. Download, review, edit, and submit to VA.")
-                st.download_button(
-                    label="Download Personal Statement (PDF)",
-                    data=pdf,
-                    file_name="va_personal_statement_draft.pdf",
-                    mime="application/pdf",
-                )
-
-        # NEXUS LETTER
-        elif letter_choice == "nexus":
-            if st.button("Generate Medical Nexus Outline"):
-                today = datetime.date.today().strftime("%B %d, %Y")
-                blocks = [
-    "<b>MEDICAL NEXUS OPINION LETTER</b>",
-    "<b>For Department of Veterans Affairs Disability Claim</b>",
-    "",
-    f"<b>Date:</b> {today}",
-    f"<b>Veteran Name:</b> {veteran_name}",
-    f"<b>Date of Birth:</b> {dob}",
-    f"<b>VA File Number / SSN:</b> {va_ssn}",
-    "",
-    "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-    "",
-    "<b>TO THE EXAMINING/TREATING PROVIDER:</b>",
-    "",
-    (
-        "This letter outline is provided to assist you in preparing a medical nexus opinion for a VA disability claim. "
-        "Please review the veteran's complete medical records, service records, and any relevant clinical literature "
-        "before finalizing your opinion."
-    ),
-    "",
-    'The VA uses the standard <b>"at least as likely as not"</b> (≥50% probability) for establishing service connection.',
-    "",
-    "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-    "",
-    "<b>SECTION 1: CURRENT DIAGNOSIS</b>",
-    "",
-    f"The veteran currently carries a diagnosis of: <b>{condition}</b>",
-    "",
-    "[Provider: Please confirm diagnosis and add ICD-10 code if applicable]",
-    "",
-    "Diagnosis confirmed: ☐ Yes   ☐ No   ☐ Modified (explain): _________________________________",
-    "",
-    "ICD-10 Code: ______________",
-    "",
-    "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-    "",
-    "<b>SECTION 2: PERTINENT SERVICE HISTORY</b>",
-    "",
-    f"Branch of Service: {branch}",
-    f"Dates of Service: Approximately {service_start} to {service_end}",
-    f"Duty Location/Assignment: {location}",
-    "",
-    "<b>Reported In-Service Event(s) / Exposure(s):</b>",
-    f"{event}",
-    "",
-    f"<b>Symptom Onset:</b> {onset_date}",
-    "",
-    f"<b>Current Impact:</b> {daily_impact}",
-    "",
-    "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-    "",
-    "<b>SECTION 3: MEDICAL OPINION (Provider to Complete)</b>",
-    "",
-    (
-        "After reviewing the veteran's medical records, service records, and the information provided above, "
-        "it is my professional medical opinion that:"
-    ),
-    "",
-    f"The veteran's current diagnosis of <b>{condition}</b> is:",
-    "",
-    "☐  <b>At least as likely as not (≥50% probability)</b>",
-    "☐  <b>Less likely than not (&lt;50% probability)</b>",
-    "",
-    (
-        "caused by, the result of, or <b>permanently aggravated beyond its natural progression</b> by the "
-        "in-service event(s), injury, or exposure described above."
-    ),
-    "",
-    "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-    "",
-    "<b>SECTION 4: DETAILED RATIONALE (Provider to Complete)</b>",
-    "",
-    "Please provide a detailed explanation supporting your medical opinion, including:",
-    "",
-    "• Pertinent Medical History: Timeline of symptoms, prior diagnoses, treatment history",
-    "• Objective Clinical Findings: Physical exam, imaging, laboratory data, diagnostic tests",
-    "• Medical Literature / Evidence Base: Relevant studies, clinical guidelines, or accepted medical principles",
-    "• Causation Analysis: How the in-service event(s) could plausibly cause or aggravate this condition",
-    "• Temporal Relationship: Connection between timing of service event and symptom onset/progression",
-    "",
-    "[Provider: Please write your detailed rationale here or attach separate documentation]",
-    "",
-    "_________________________________________________________________________________",
-    "",
-    "_________________________________________________________________________________",
-    "",
-    "_________________________________________________________________________________",
-    "",
-    "_________________________________________________________________________________",
-    "",
-    "_________________________________________________________________________________",
-    "",
-    "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-    "",
-    "<b>PROVIDER CERTIFICATION</b>",
-    "",
-    (
-        "I certify that I have reviewed the available records and that the opinions expressed above are given "
-        "to a reasonable degree of medical certainty based on my clinical expertise and the evidence available."
-    ),
-    "",
-    "Provider Name (Print): _________________________________________________",
-    "",
-    "Professional Title / Specialty: _________________________________________",
-    "",
-    "License Number & State: ________________________________________________",
-    "",
-    "Provider Signature: ___________________________________   Date: _______________",
-    "",
-    "Contact Information: ___________________________________________________",
-]
-
-                pdf = build_pdf(blocks)
-                st.success("Medical Nexus Letter Outline draft generated. Download and bring to your doctor for completion and signature.")
-                st.download_button(
-                    label="Download Medical Nexus Outline (PDF)",
-                    data=pdf,
-                    file_name="va_nexus_letter_outline_draft.pdf",
-                    mime="application/pdf",
-                )
-
-        # LAY / WITNESS STATEMENT
-        elif letter_choice == "lay":
-            if st.button("Generate Lay/Witness Statement (VA Form 21-10210 style)"):
-                today = datetime.date.today().strftime("%B %d, %Y")
-                observed_text = lay_examples if lay_examples else daily_impact
-
-                blocks = [
-                    "<b>VA Form 21-10210: Lay/Witness Statement (CONTENT DRAFT)</b>",
-                    "",
-                    "This draft is organized to match the sections of VA Form 21-10210 so you can copy it onto the official VA form.",
-                    "",
-                    "Veteran's Name: " + veteran_name,
-                    "Social Security Number / VA File Number: " + va_ssn,
-                    "Date of Birth: " + dob,
-                    "",
-                    (
-                        "I, " + witness_name + ", have personal knowledge of the Veteran, " + veteran_name +
-                        ", who served in the United States " + branch +
-                        " from approximately " + service_start + " to " + service_end + ". "
-                        "I am the Veteran's " + relationship +
-                        " and I have known them since around " + known_since + ". "
-                        "I am providing this statement in my own words to describe what I have personally seen and observed regarding "
-                        "the Veteran's " + condition + " and how it affects them."
-                    ),
-                    "",
-                    (
-                        "During and after the Veteran's military service at " + location +
-                        ", I became aware that they experienced certain event(s) or exposures related to their service. "
-                        "From my perspective, the most important background information is: " + event
-                    ),
-                    "",
-                    (
-                        "Since around " + onset_date +
-                        ", I have personally observed the following changes, behaviors, symptoms, or limitations in " + veteran_name +
-                        ": " + observed_text
-                    ),
-                    "",
-                    (
-                        "Based on what I have seen over time, these changes have affected the Veteran's daily life, including their ability "
-                        "to work, interact with family, participate in social activities, and manage everyday tasks."
-                    ),
-                    "",
-                    (
-                        "I am not a medical professional and I am not offering a medical opinion or diagnosis. "
-                        "I am only describing what I have personally seen, heard, or observed about the Veteran's condition "
-                        "and how it affects them."
-                    ),
-                    "",
-                    (
-                        "I certify that the statements in this letter are true and correct to the best of my knowledge and belief."
-                    ),
-                    "",
-                    "Witness Signature: _______________________________     Date: _______________",
-                    "Witness Printed Name: " + witness_name,
-                    "Witness Contact Information: " + witness_contact,
-                ]
-
-                pdf = build_pdf(blocks)
-                st.success("Lay/Witness Statement draft generated. Copy this content into VA Form 21-10210.")
-                st.download_button(
-                    label="Download Lay/Witness Statement Draft (PDF)",
-                    data=pdf,
-                    file_name="va_form_21_10210_lay_statement_draft.pdf",
-                    mime="application/pdf",
-                )
-
+        # PERSONAL STATEMENT, NEXUS LETTER, LAY / WITNESS STATEMENT blocks
+        # go here exactly as you have them now.
 
 # ======================
 # FUTURE LETTER BUILDER PAGE
 # ======================
 
-with tab_advanced:
+elif st.session_state.active_tab == "advanced":
     st.header("Future Letter Builder")
-    st.write("This page is under construction.  Additional forms  will go here.")
-    # or, if you have a function:
-    # advanced_builder()
+    st.write("This page is under construction.  Additional forms will go here.")
+    # advanced_builder() later
 
 
 # ======================
