@@ -327,29 +327,30 @@ with tab_quick:
         st.session_state.letter_choice = None
 
     col1, col2, col3 = st.columns(3)
-with col1:
-    if st.button(
-        "Personal Statement",
-        key="btn_personal",
-        help="This should be input by the veteran.",
-    ):
-        st.session_state.letter_choice = "personal"
 
-with col2:
-    if st.button(
-        "Medical Nexus Letter Outline",
-        key="btn_nexus",
-        help="Bring this outline to your primary care provider for completion.",
-    ):
-        st.session_state.letter_choice = "nexus"
+    with col1:
+        if st.button(
+            "Personal Statement",
+            key="btn_personal",
+            help="This should be input by the veteran.",
+        ):
+            st.session_state.letter_choice = "personal"
 
-with col3:
-    if st.button(
-        "Lay/Witness Statement (VA Form 21-10210 style)",
-        key="btn_lay",
-        help="This should be input by the witness/buddy.",
-    ):
-        st.session_state.letter_choice = "lay"
+    with col2:
+        if st.button(
+            "Medical Nexus Letter Outline",
+            key="btn_nexus",
+            help="Bring this outline to your primary care provider for completion.",
+        ):
+            st.session_state.letter_choice = "nexus"
+
+    with col3:
+        if st.button(
+            "Lay/Witness Statement (VA Form 21-10210 style)",
+            key="btn_lay",
+            help="This should be input by the witness/buddy.",
+        ):
+            st.session_state.letter_choice = "lay"
 
     letter_choice = st.session_state.letter_choice
 
@@ -691,8 +692,10 @@ Veteran's question:
 # ======================
 
 with tab_advanced:
-    if st.session_state.active_tab == "advanced":
-        advanced_builder()
+    st.header("Advanced Letter Builder")
+    st.write("This page is under construction. Advanced tools for power users will go here.")
+    # or, if you have a function:
+    # advanced_builder()
 
 
 # ======================
