@@ -302,7 +302,7 @@ with col_right:
 # Tabs + top buttons
 # ======================
 
-tab_quick, tab_advanced = st.tabs(["Quick Drafts", "Advanced Letter Builder"])
+tab_quick, tab_advanced = st.tabs(["Quick Drafts", "Future Letter Builder"])
 
 if "active_tab" not in st.session_state:
     st.session_state.active_tab = "quick"
@@ -312,7 +312,7 @@ with col_nav1:
     if st.button("Quick Drafts", use_container_width=True):
         st.session_state.active_tab = "quick"
 with col_nav2:
-    if st.button("Advanced Letter Builder", use_container_width=True):
+    if st.button("Future Letter Builder", use_container_width=True):
         st.session_state.active_tab = "advanced"
 
 
@@ -692,12 +692,12 @@ Veteran's question:
 
 
 # ======================
-# ADVANCED LETTER BUILDER PAGE
+# FUTURE LETTER BUILDER PAGE
 # ======================
 
 with tab_advanced:
-    st.header("Advanced Letter Builder")
-    st.write("This page is under construction. Advanced tools for power users will go here.")
+    st.header("Future Letter Builder")
+    st.write("This page is under construction.  Additional forms  will go here.")
     # or, if you have a function:
     # advanced_builder()
 
