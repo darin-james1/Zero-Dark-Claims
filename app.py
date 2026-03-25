@@ -271,32 +271,7 @@ col_main, col_right = st.columns([4, 1])
 
 with col_main:
     st.title("Zero Dark Claims – VA Letter Helper")
-    st.markdown(
-        """
-        <div style="margin-top: 0.5rem; margin-bottom: 1.5rem;">
-            <div style="
-                font-size: 2rem;
-                font-weight: 700;
-                color: #f9fafb;
-                line-height: 1.2;
-            ">
-                Built by veterans, for veterans, to support your VA disability claim.
-            </div>
-            <div style="
-                margin-top: 0.35rem;
-                font-size: 0.85rem;
-                color: #9ca3af;
-            ">
-                For educational support only – not legal, medical, or financial advice.
-            </div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-with col_right:
-    # (whatever you later put on the right side, or leave empty for now)
-    pass
+    
 
     st.markdown(
         """
