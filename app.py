@@ -301,13 +301,13 @@ with tab_quick:
 
     col1, col2, col3 = st.columns(3)
     with col1:
-        if st.button("Personal Statement"):
+        if st.button("Personal Statement", help="This should be input by the veteran."):
             st.session_state.letter_choice = "personal"
     with col2:
-        if st.button("Medical Nexus Letter Outline"):
+        if st.button("Medical Nexus Letter Outline", help="Bring this outline to your primary care provider for completion."):
             st.session_state.letter_choice = "nexus"
     with col3:
-        if st.button("Lay/Witness Statement (VA Form 21-10210 style)"):
+        if st.button("Lay/Witness Statement (VA Form 21-10210 style)", help="This should be input by the witness/buddy."):
             st.session_state.letter_choice = "lay"
 
     letter_choice = st.session_state.letter_choice
@@ -349,7 +349,7 @@ with tab_quick:
             placeholder="Example: IED blast, aircraft noise, burn pits, training accident"
         )
         condition = st.text_input(
-            "Main condition you’re talking about",
+            "Main condition you're talking about",
             placeholder="e.g., PTSD, tinnitus, back pain, migraines"
         )
         onset_date = st.text_input(
@@ -364,7 +364,7 @@ with tab_quick:
         if letter_choice == "lay":
             lay_examples = st.text_area(
                 "Specific witnessed examples (for Section III – Statement)",
-                placeholder="Example: Since returning in 2019, I’ve seen him sleep with a light on, startle at loud noises, and withdraw from family gatherings."
+                placeholder="Example: Since returning in 2019, I've seen him sleep with a light on, startle at loud noises, and withdraw from family gatherings."
             )
         else:
             lay_examples = ""
@@ -387,7 +387,7 @@ with tab_quick:
 Current draft:
 {draft_text}
 
-Veteran’s question:
+Veteran's question:
 {user_prompt}
 """
             st.session_state.avery_messages.append({"role": "user", "content": context})
@@ -477,7 +477,7 @@ Veteran’s question:
                         "before finalizing your opinion."
                     ),
                     "",
-                    "The VA uses the standard <b>\"at least as likely as not\"</b> (≥50% probability) for establishing service connection.",
+                    "The VA uses the standard <b>\\"at least as likely as not\\"</b> (≥50% probability) for establishing service connection.",
                     "",
                     "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
                     "",
@@ -595,14 +595,14 @@ Veteran’s question:
                         "I, " + witness_name + ", have personal knowledge of the Veteran, " + veteran_name +
                         ", who served in the United States " + branch +
                         " from approximately " + service_start + " to " + service_end + ". "
-                        "I am the Veteran’s " + relationship +
+                        "I am the Veteran's " + relationship +
                         " and I have known them since around " + known_since + ". "
                         "I am providing this statement in my own words to describe what I have personally seen and observed regarding "
-                        "the Veteran’s " + condition + " and how it affects them."
+                        "the Veteran's " + condition + " and how it affects them."
                     ),
                     "",
                     (
-                        "During and after the Veteran’s military service at " + location +
+                        "During and after the Veteran's military service at " + location +
                         ", I became aware that they experienced certain event(s) or exposures related to their service. "
                         "From my perspective, the most important background information is: " + event
                     ),
@@ -614,13 +614,13 @@ Veteran’s question:
                     ),
                     "",
                     (
-                        "Based on what I have seen over time, these changes have affected the Veteran’s daily life, including their ability "
+                        "Based on what I have seen over time, these changes have affected the Veteran's daily life, including their ability "
                         "to work, interact with family, participate in social activities, and manage everyday tasks."
                     ),
                     "",
                     (
                         "I am not a medical professional and I am not offering a medical opinion or diagnosis. "
-                        "I am only describing what I have personally seen, heard, or observed about the Veteran’s condition "
+                        "I am only describing what I have personally seen, heard, or observed about the Veteran's condition "
                         "and how it affects them."
                     ),
                     "",
