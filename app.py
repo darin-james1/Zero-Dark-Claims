@@ -5,30 +5,37 @@ import streamlit as st
 st.markdown(
     """
     <style>
-    /* Personal Statement button */
-    div.st-key-btn_personal button {
-        background-color: #0F4C81;
-        color: white;
-        border-radius: 6px;
+    /* Center column similar to your landing page */
+    .block-container {
+        max-width: 900px;
+        padding-top: 2rem;
+        padding-bottom: 3rem;
+        margin: 0 auto;
     }
 
-    /* Nexus button */
-    div.st-key-btn_nexus button {
-        background-color: #2E7D32;
-        color: white;
-        border-radius: 6px;
+    /* Top nav buttons (Quick Drafts / Future Letter Builder) as tab-like text */
+    div.st-key-mode_quick button,
+    div.st-key-mode_advanced button {
+        background-color: transparent;
+        color: #e5e7eb;
+        border-radius: 0;
+        border: none;
+        font-weight: 600;
+        padding: 0.25rem 0;
+        font-size: 0.95rem;
     }
 
-    /* Lay/Witness button */
-    div.st-key-btn_lay button {
-        background-color: #8E24AA;
-        color: white;
-        border-radius: 6px;
+    /* Hover effect using your orange accent */
+    div.st-key-mode_quick button:hover,
+    div.st-key-mode_advanced button:hover {
+        color: #ea580c;
     }
+
     </style>
     """,
     unsafe_allow_html=True,
 )
+
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
@@ -320,6 +327,21 @@ st.markdown("---")
 # ======================
 
 if st.session_state.active_tab == "quick":
+
+    # Mini-hero section
+    st.markdown(
+        """
+        <div style="margin-bottom: 1.5rem;">
+            <h2 style="margin-bottom: 0.25rem;">Draft VA-ready letters in minutes.</h2>
+            <p style="margin-top: 0.25rem; font-size: 0.95rem; color: #9ca3af;">
+                Answer plain-language questions, then download veteran-friendly drafts you can review,
+                edit, and submit with your VA claim.
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
     st.write("Choose the type of letter you want to draft and then fill in your details.")
     st.markdown("### Step 1 – Choose Letter Type")
 

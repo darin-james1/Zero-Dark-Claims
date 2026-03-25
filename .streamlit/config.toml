@@ -1,7 +1,7 @@
 [theme]
-base="light"
-primaryColor="#001F3F"
-backgroundColor="#FFFFFF"
-secondaryBackgroundColor="#F5F5F5"
-textColor="#1A1D21"
-font="sans serif"
+base = "dark"
+primaryColor = "#ea580c"          # orange accent like your CTAs
+backgroundColor = "#020617"       # near-black page background
+secondaryBackgroundColor = "#020617"
+textColor = "#e5e7eb"             # light gray text
+font = "sans serif"
