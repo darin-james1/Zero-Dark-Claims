@@ -2,6 +2,33 @@ import datetime
 from io import BytesIO
 
 import streamlit as st
+st.markdown(
+    """
+    <style>
+    /* Personal Statement button */
+    div.st-key-btn_personal button {
+        background-color: #0F4C81;
+        color: white;
+        border-radius: 6px;
+    }
+
+    /* Nexus button */
+    div.st-key-btn_nexus button {
+        background-color: #2E7D32;
+        color: white;
+        border-radius: 6px;
+    }
+
+    /* Lay/Witness button */
+    div.st-key-btn_lay button {
+        background-color: #8E24AA;
+        color: white;
+        border-radius: 6px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
@@ -300,15 +327,29 @@ with tab_quick:
         st.session_state.letter_choice = None
 
     col1, col2, col3 = st.columns(3)
-    with col1:
-        if st.button("Personal Statement", help="This should be input by the veteran."):
-            st.session_state.letter_choice = "personal"
-    with col2:
-        if st.button("Medical Nexus Letter Outline", help="Bring this outline to your primary care provider for completion."):
-            st.session_state.letter_choice = "nexus"
-    with col3:
-        if st.button("Lay/Witness Statement (VA Form 21-10210 style)", help="This should be input by the witness/buddy."):
-            st.session_state.letter_choice = "lay"
+with col1:
+    if st.button(
+        "Personal Statement",
+        key="btn_personal",
+        help="This should be input by the veteran.",
+    ):
+        st.session_state.letter_choice = "personal"
+
+with col2:
+    if st.button(
+        "Medical Nexus Letter Outline",
+        key="btn_nexus",
+        help="Bring this outline to your primary care provider for completion.",
+    ):
+        st.session_state.letter_choice = "nexus"
+
+with col3:
+    if st.button(
+        "Lay/Witness Statement (VA Form 21-10210 style)",
+        key="btn_lay",
+        help="This should be input by the witness/buddy.",
+    ):
+        st.session_state.letter_choice = "lay"
 
     letter_choice = st.session_state.letter_choice
 
