@@ -415,9 +415,6 @@ if st.session_state.active_tab == "quick":
     if "letter_choice" not in st.session_state:
         st.session_state.letter_choice = None
 
-st.write("")
-st.write("")  # two blank lines
-
     col1, col2, col3 = st.columns(3)
 
     with col1:
