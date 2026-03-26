@@ -5,12 +5,17 @@ import streamlit as st
 st.markdown(
     """
     <style>
-    /* Hide the entire top header/tool bar (search, hamburger, etc.) */
-    header[data-testid="stHeader"] {
-        background: transparent !important;
-    }
-    header[data-testid="stHeader"] > div {
+    /* Completely hide the top toolbar / search area */
+    div[data-testid="stToolbar"],
+    header[data-testid="stHeader"],
+    div[role="banner"] {
         display: none !important;
+        visibility: hidden !important;
+    }
+
+    /* Pull content up a bit now that the header is gone */
+    .block-container {
+        padding-top: 1.5rem !important;
     }
     </style>
     """,
