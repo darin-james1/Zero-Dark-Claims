@@ -298,38 +298,47 @@ def advanced_builder():
 # Page header (inside card)
 # ======================
 
-st.markdown('<div class="zdc-card">', unsafe_allow_html=True)
-
-# Bubble above the logo
+# Bubble + card + logo + title all together
 st.markdown(
     """
-    <div style="
-        margin-bottom: 1.0rem;
-        padding: 0.75rem 1.25rem;
-        border-radius: 9999px;
-        background: rgba(15,23,42,0.95);
-        border: 1px solid rgba(148,163,184,0.4);
-    ">
+    <div class="zdc-card">
         <div style="
-            font-size: 1.5rem;        /* match title size */
-            font-weight: 700;
-            color: #f9fafb;
-            line-height: 1.25;
+            margin-bottom: 1.0rem;
+            padding: 0.75rem 1.25rem;
+            border-radius: 9999px;
+            background: rgba(15,23,42,0.95);
+            border: 1px solid rgba(148,163,184,0.4);
         ">
-            Built by veterans, for veterans, to support your VA disability claim.
-        </div>        
+            <div style="
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: #f9fafb;
+                line-height: 1.25;
+            ">
+                Built by veterans, for veterans, to support your VA disability claim.
+            </div>
+            <div style="
+                margin-top: 0.25rem;
+                font-size: 0.8rem;
+                color: #9ca3af;
+            ">
+                For educational support only – not legal, medical, or financial advice.
+            </div>
+        </div>
     </div>
     """,
     unsafe_allow_html=True,
 )
 
-# Logo + main title
+# Then your existing logo + title using normal Streamlit:
 st.image("logo.png", width=160)
 col_main, col_right = st.columns([4, 1])
 
 with col_main:
     st.title("Zero Dark Claims – VA Letter Helper")
 
+with col_right:
+    pass
     st.markdown(
         """
     **Privacy & Use Notice**
