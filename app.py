@@ -5,17 +5,23 @@ import streamlit as st
 st.markdown(
     """
     <style>
-    /* Completely hide the top toolbar / search area */
-    div[data-testid="stToolbar"],
-    header[data-testid="stHeader"],
-    div[role="banner"] {
-        display: none !important;
-        visibility: hidden !important;
+    /* Make the built-in search bar invisible */
+    div[data-testid="stSearchButton"],
+    div[data-testid="stToolbarSearch"],
+    input[type="search"],
+    input[aria-label="Search"],
+    div[role="search"] {
+        background-color: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+        color: transparent !important;
     }
 
-    /* Pull content up a bit now that the header is gone */
-    .block-container {
-        padding-top: 1.5rem !important;
+    /* Hide any icon inside the search bar */
+    div[data-testid="stSearchButton"] svg,
+    div[data-testid="stToolbarSearch"] svg {
+        display: none !important;
+        visibility: hidden !important;
     }
     </style>
     """,
