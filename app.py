@@ -5,18 +5,18 @@ import streamlit as st
 st.markdown(
     """
     <style>
-    /* Hide / make the default Streamlit search bar area transparent */
-    [data-testid="stToolbar"] {
-        background-color: transparent !important;
-        box-shadow: none !important;
+    /* Hide the entire top header/tool bar (search, hamburger, etc.) */
+    header[data-testid="stHeader"] {
+        background: transparent !important;
     }
-    [data-testid="stToolbar"] * {
-        color: transparent !important;
+    header[data-testid="stHeader"] > div {
+        display: none !important;
     }
     </style>
     """,
     unsafe_allow_html=True,
 )
+
 st.markdown(
     """
     <style>
