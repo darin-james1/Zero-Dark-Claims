@@ -5,8 +5,11 @@ import streamlit as st
 st.markdown(
     """
     <style>
-    /* Hide Streamlit's built-in top bar (search, hamburger, etc.) */
-    header, div[role="banner"] {
+    /* Hide any toolbar / search container Streamlit uses */
+    div[data-testid^="stToolbar"],
+    div[data-testid^="stAppToolbar"],
+    div[data-testid^="stSearch"],
+    div[role="search"] {
         display: none !important;
         visibility: hidden !important;
         height: 0 !important;
@@ -14,11 +17,6 @@ st.markdown(
         max-height: 0 !important;
         padding: 0 !important;
         margin: 0 !important;
-    }
-
-    /* Pull main app content up now that the header is gone */
-    .block-container {
-        padding-top: 1.5rem !important;
     }
     </style>
     """,
