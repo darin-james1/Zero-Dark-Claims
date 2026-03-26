@@ -339,6 +339,7 @@ with col_main:
 
 with col_right:
     pass
+)
     st.markdown(
         """
     **Privacy & Use Notice**
