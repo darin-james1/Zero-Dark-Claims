@@ -5,37 +5,29 @@ import streamlit as st
 st.markdown(
     """
     <style>
-    /* 1) Hide the entire top header/toolbar area */
-    header,
-    header *[data-testid],
-    div[role="banner"],
-    div[role="banner"] * {
-        background: transparent !important;
-        box-shadow: none !important;
-        border: none !important;
-        color: transparent !important;
+    /* Hide Streamlit's entire top header / menu / search wrapper */
+    header[data-testid="stHeader"] {
+        display: none !important;
+        visibility: hidden !important;
+        height: 0 !important;
+        min-height: 0 !important;
+        max-height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
     }
 
-    /* 2) Hide any HTML <input> that looks like a search bar */
-    input[type="search"],
-    input[placeholder*="Search"],
-    input[aria-label*="Search"] {
-        background-color: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-        color: transparent !important;
+    /* Some builds use a separate banner wrapper */
+    div[role="banner"] {
+        display: none !important;
+        visibility: hidden !important;
+        height: 0 !important;
+        min-height: 0 !important;
+        max-height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
     }
 
-    /* 3) Hide any icon-only buttons in the header (search/menu icons) */
-    header button,
-    div[role="banner"] button {
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-        color: transparent !important;
-    }
-
-    /* Pull content up a bit */
+    /* Pull main app content up now that header is gone */
     .block-container {
         padding-top: 1.5rem !important;
     }
@@ -43,7 +35,6 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
-
 
 st.markdown(
     """
