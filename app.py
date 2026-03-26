@@ -5,23 +5,20 @@ import streamlit as st
 st.markdown(
     """
     <style>
-    /* Make the built-in search bar invisible */
-    div[data-testid="stSearchButton"],
-    div[data-testid="stToolbarSearch"],
-    input[type="search"],
-    input[aria-label="Search"],
-    div[role="search"] {
-        background-color: transparent !important;
-        box-shadow: none !important;
-        border: none !important;
-        color: transparent !important;
-    }
-
-    /* Hide any icon inside the search bar */
-    div[data-testid="stSearchButton"] svg,
-    div[data-testid="stToolbarSearch"] svg {
+    /* Hide Streamlit's built-in top bar (search, hamburger, etc.) */
+    header, div[role="banner"] {
         display: none !important;
         visibility: hidden !important;
+        height: 0 !important;
+        min-height: 0 !important;
+        max-height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* Pull main app content up now that the header is gone */
+    .block-container {
+        padding-top: 1.5rem !important;
     }
     </style>
     """,
