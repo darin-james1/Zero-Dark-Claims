@@ -283,14 +283,7 @@ st.markdown(
             line-height: 1.25;
         ">
             Built by veterans, for veterans, to support your VA disability claim.
-        </div>
-        <div style="
-            margin-top: 0.25rem;
-            font-size: 0.8rem;        /* smaller disclaimer */
-            color: #9ca3af;
-        ">
-            For educational support only – not legal, medical, or financial advice.
-        </div>
+        </div>        
     </div>
     """,
     unsafe_allow_html=True,
@@ -306,6 +299,8 @@ with col_main:
     st.markdown(
         """
     **Privacy & Use Notice**
+
+    For educational support only – not legal, medical, or financial advice.
 
     This tool runs locally in your browser and on your device. No Veteran-identifying information is stored, logged, or sent to any external server. Your information stays here until you close this window.  
 
