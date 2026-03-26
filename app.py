@@ -303,9 +303,6 @@ col_main, col_right = st.columns([4, 1])
 with col_main:
     st.title("Zero Dark Claims – VA Letter Helper")
 
-with col_right:
-    pass
-
     st.markdown(
         """
     **Privacy & Use Notice**
