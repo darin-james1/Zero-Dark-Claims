@@ -411,6 +411,14 @@ if st.session_state.active_tab == "quick":
 
     st.write("Choose the type of letter you want to draft and then fill in your details.")
     st.markdown("### Step 1 – Choose Letter Type")
+    st.write("Choose the type of letter you want to draft and then fill in your details.")
+    st.markdown("### Step 1 – Choose Letter Type")
+    st.write("")      # blank line
+    st.write("")      # another blank line
+
+if "letter_choice" not in st.session_state:
+    st.session_state.letter_choice = None
+
 
     if "letter_choice" not in st.session_state:
         st.session_state.letter_choice = None
