@@ -5,11 +5,11 @@ import streamlit as st
 st.markdown(
     """
     <style>
-    /* Hide any toolbar / search container Streamlit uses */
-    div[data-testid^="stToolbar"],
-    div[data-testid^="stAppToolbar"],
-    div[data-testid^="stSearch"],
-    div[role="search"] {
+    /* Hide Streamlit's entire top bar / header (search, menu, etc.) */
+    header[data-testid="stHeader"],
+    div[data-testid="stHeader"],
+    div[role="banner"],
+    div[data-testid="stToolbar"] {
         display: none !important;
         visibility: hidden !important;
         height: 0 !important;
@@ -17,6 +17,11 @@ st.markdown(
         max-height: 0 !important;
         padding: 0 !important;
         margin: 0 !important;
+    }
+
+    /* Pull main content up to remove empty space */
+    .block-container {
+        padding-top: 1.5rem !important;
     }
     </style>
     """,
