@@ -5,6 +5,21 @@ import streamlit as st
 st.markdown(
     """
     <style>
+    /* Hide / make the default Streamlit search bar area transparent */
+    [data-testid="stToolbar"] {
+        background-color: transparent !important;
+        box-shadow: none !important;
+    }
+    [data-testid="stToolbar"] * {
+        color: transparent !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+st.markdown(
+    """
+    <style>
     /* Center column similar to your landing page */
     .block-container {
         max-width: 900px;
