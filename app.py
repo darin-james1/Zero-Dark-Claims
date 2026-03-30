@@ -52,7 +52,7 @@ st.markdown(
     div.st-key-mode_advanced button {
         background-color: transparent;
         color: #e5e7eb;
-        border-radius: 999px;   /* or 8px for mild rounding */
+        border-radius: 0;
         border: none;
         font-weight: 600;
         padding: 0.25rem 0;
@@ -181,24 +181,6 @@ st.markdown(
       overflow-y: auto;
       padding-right: 0.5rem;
     }
-    /* ---------- Make input fields more visible ---------- */
-    .stApp input[type="text"],
-    .stApp input[type="number"],
-    .stApp textarea,
-    .stApp .stTextInput > div > div > input,
-    .stApp .stTextArea textarea {
-      background-color: #0b1220;      /* lighter than page bg */
-      border: 2px solid #f97316;      /* bright accent border */
-      border-radius: 8px;
-      color: #e5e7eb;
-      padding: 0.5rem 0.75rem;
-    }
-
-    .stApp ::placeholder {
-      color: #9ca3af;
-      opacity: 1;
-    }
-
     </style>
     """,
     unsafe_allow_html=True,
@@ -437,8 +419,6 @@ if st.session_state.active_tab == "quick":
     col1, col2, col3 = st.columns(3)
 
     with col1:
-personal_container = st.container(key="mode_quick_personal")
-        with personal_container:
         if st.button(
             "Personal Statement",
             key="btn_personal",
