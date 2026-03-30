@@ -181,6 +181,24 @@ st.markdown(
       overflow-y: auto;
       padding-right: 0.5rem;
     }
+    /* ---------- Make input fields more visible ---------- */
+    .stApp input[type="text"],
+    .stApp input[type="number"],
+    .stApp textarea,
+    .stApp .stTextInput > div > div > input,
+    .stApp .stTextArea textarea {
+      background-color: #0b1220;      /* lighter than page bg */
+      border: 2px solid #f97316;      /* bright accent border */
+      border-radius: 8px;
+      color: #e5e7eb;
+      padding: 0.5rem 0.75rem;
+    }
+
+    .stApp ::placeholder {
+      color: #9ca3af;
+      opacity: 1;
+    }
+
     </style>
     """,
     unsafe_allow_html=True,
