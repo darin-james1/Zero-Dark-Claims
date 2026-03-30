@@ -59,6 +59,17 @@ st.markdown(
         font-size: 0.95rem;
     }
 
+    /* Make Personal Statement button look like Quick Draft buttons */
+    div.st-key-mode_quick_personal button {
+        background-color: transparent;
+        color: #e5e7eb;
+        border-radius: 999px;
+        border: 1px solid #f97316;   /* or none if you want just text */
+        font-weight: 600;
+        padding: 0.25rem 0.75rem;
+        font-size: 0.95rem;
+    }
+
     /* Hover effect using your orange accent */
     div.st-key-mode_quick button:hover,
     div.st-key-mode_advanced button:hover {
@@ -437,6 +448,8 @@ if st.session_state.active_tab == "quick":
     col1, col2, col3 = st.columns(3)
 
     with col1:
+        personal_container = st.container(key="mode_quick_personal")
+        with personal_container:
         if st.button(
             "Personal Statement",
             key="btn_personal",
