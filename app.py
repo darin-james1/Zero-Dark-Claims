@@ -5,64 +5,56 @@ import streamlit as st
 st.markdown(
     """
     <style>
-    /* Hide Streamlit's entire top header / menu / search wrapper */
-    header[data-testid="stHeader"] {
-        display: none !important;
-        visibility: hidden !important;
-        height: 0 !important;
-        min-height: 0 !important;
-        max-height: 0 !important;
-        padding: 0 !important;
-        margin: 0 !important;
+    :root {
+      --zdc-bg: #050816;
+      --zdc-bg-soft: #0b1220;
+      --zdc-accent: #00e0ff;
+      --zdc-accent-soft: rgba(0, 224, 255, 0.16);
+      --zdc-text-main: #f9fafb;
+      --zdc-text-muted: #d1d5db;
+      --zdc-border-subtle: #1f2937;
     }
 
-    /* Some builds use a separate banner wrapper */
-    div[role="banner"] {
-        display: none !important;
-        visibility: hidden !important;
-        height: 0 !important;
-        min-height: 0 !important;
-        max-height: 0 !important;
-        padding: 0 !important;
-        margin: 0 !important;
+    .stApp {
+      background: radial-gradient(circle at top, #111827 0, #020617 55%);
+      color: var(--zdc-text-main);
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
-    /* Pull main app content up now that header is gone */
-    .block-container {
-        padding-top: 1.5rem !important;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
+    /* ... all your existing styles ... */
 
-st.markdown(
-    """
-    <style>
-    /* Center column similar to your landing page */
-    .block-container {
-        max-width: 900px;
-        padding-top: 2rem;
-        padding-bottom: 3rem;
-        margin: 0 auto;
+    .chat-history-container {
+      max-height: calc(100vh - 200px);
+      overflow-y: auto;
+      padding-right: 0.5rem;
     }
 
-    /* Top nav buttons (Quick Drafts / Future Letter Builder) as tab-like text */
-    div.st-key-mode_quick button,
-    div.st-key-mode_advanced button {
-        background-color: transparent;
-        color: #e5e7eb;
-        border-radius: 999px;   /* or 8px for mild rounding */
-        border: none;
-        font-weight: 600;
-        padding: 0.25rem 0;
-        font-size: 0.95rem;
+    /* ---------- Make input fields more visible (subtle outline) ---------- */
+    .stApp input[type="text"],
+    .stApp input[type="number"],
+    .stApp textarea,
+    .stApp .stTextInput > div > div > input,
+    .stApp .stTextArea textarea {
+      background-color: #0b1220;
+      border: 1px solid #3f3f46;      /* thin neutral gray */
+      border-radius: 8px;
+      color: #e5e7eb;
+      padding: 0.5rem 0.75rem;
     }
 
-    /* Hover effect using your orange accent */
-    div.st-key-mode_quick button:hover,
-    div.st-key-mode_advanced button:hover {
-        color: #ea580c;
+    .stApp input[type="text"]:focus,
+    .stApp input[type="number"]:focus,
+    .stApp textarea:focus,
+    .stApp .stTextInput > div > div > input:focus,
+    .stApp .stTextArea textarea:focus {
+      border: 1px solid #60a5fa;      /* soft blue focus */
+      box-shadow: 0 0 0 1px #60a5fa22;
+      outline: none;
+    }
+
+    .stApp ::placeholder {
+      color: #9ca3af;
+      opacity: 1;
     }
 
     </style>
