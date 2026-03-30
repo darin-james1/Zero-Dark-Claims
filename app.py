@@ -108,7 +108,7 @@ st.markdown(
 
     .zdc-card {
       background: radial-gradient(circle at top left, #111827, #020617);
-      border-radius: 999px;   /* or 8px for mild rounding */
+      border-radius: 1.5rem;
       padding: 1.5rem 1.8rem;
       border: 1px solid rgba(148,163,184,0.18);
       box-shadow: 0 24px 80px rgba(15,23,42,0.85);
@@ -125,7 +125,7 @@ st.markdown(
       border: none;
       box-shadow: 0 18px 45px rgba(56,189,248,0.45);
       font-weight: 600;
-      border-radius: 999px;
+      border-radius: 999px;   /* or 8px for mild rounding */
       padding: 0.55rem 1.3rem;
     }
 
