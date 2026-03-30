@@ -125,7 +125,7 @@ st.markdown(
       border: none;
       box-shadow: 0 18px 45px rgba(56,189,248,0.45);
       font-weight: 600;
-      border-radius: 999px;   /* or 8px for mild rounding */
+      border-radius: 999px;
       padding: 0.55rem 1.3rem;
     }
 
@@ -419,12 +419,14 @@ if st.session_state.active_tab == "quick":
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        if st.button(
-            "Personal Statement",
-            key="btn_personal",
-            help="This should be input by the veteran.",
-        ):
-            st.session_state.letter_choice = "personal"
+        personal_container = st.container(key="mode_quick_personal")
+        with personal_container:
+            if st.button(
+                "Personal Statement",
+                key="btn_personal",
+                help="This should be input by the veteran.",
+            ):
+                st.session_state.letter_choice = "personal"
 
     with col2:
         if st.button(
