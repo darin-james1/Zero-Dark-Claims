@@ -58,7 +58,6 @@ st.markdown(
         padding: 0.25rem 0;
         font-size: 0.95rem;
     }
-
     /* Make Personal Statement button look like Quick Draft buttons */
     div.st-key-mode_quick_personal button {
         background-color: transparent;
