@@ -52,7 +52,7 @@ st.markdown(
     div.st-key-mode_advanced button {
         background-color: transparent;
         color: #e5e7eb;
-        border-radius: 0;
+        border-radius: 999px;   /* or 8px for mild rounding */
         border: none;
         font-weight: 600;
         padding: 0.25rem 0;
