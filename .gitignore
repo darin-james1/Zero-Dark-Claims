@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+*.pyo
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.env
+.venv
+venv/
+env/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Windows Python installation (never commit these)
+Lib/
+DLLs/
+Doc/
+Tools/
+tcl/
+include/
+libs/
+Scripts/
+*.exe
+*.dll
+*.lib
+*.whl
+*.chm
+*.a
+*.manifest
