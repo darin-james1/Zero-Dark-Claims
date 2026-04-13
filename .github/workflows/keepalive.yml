@@ -1,0 +1,26 @@
+name: Keepalive
+
+on:
+  schedule:
+    - cron: '0 12 */4 * *'  # Every 4 days at noon UTC
+  workflow_dispatch:         # Allow manual trigger
+
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Keep Codespace alive
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const codespaces = await github.rest.codespaces.listForAuthenticatedUser();
+            const targets = codespaces.data.codespaces.filter(cs =>
+              cs.repository.name === 'Zero-Dark-Claims'
+            );
+            for (const cs of targets) {
+              console.log(`Found Codespace: ${cs.name} - state: ${cs.state}`);
+            }
+            console.log('Keepalive ping complete.');
+      - name: Checkout to reset retention timer
+        uses: actions/checkout@v4
